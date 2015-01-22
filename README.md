@@ -105,3 +105,12 @@ After that, the `dateNames` variable is assigned back to the data frame column n
 $> names(mData) <- dataNames
 ```
 
+### Step 5 - Grouping and Summarizing
+
+In this step, I used the function `ddply(...)` to group by the columns `Activity` and `Subject` and, at the same time, apply the function `mean(...)` to all other grouped columns. In order not to repeat the structure `columnName = mean(columnName)`, I used the function `numcolwise(...)` so I could make the function to operate *column-wise* on the grouped data.frame. Both functions are contained in the `plyr` package. 
+
+Here is the instruction that performs the grouping and summarizing: 
+```R
+finalData <- ddply(mData, c(.(Activity), .(Subject)), numcolwise(mean))
+```
+
