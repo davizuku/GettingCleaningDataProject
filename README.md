@@ -114,3 +114,12 @@ Here is the instruction that performs the grouping and summarizing:
 finalData <- ddply(mData, c(.(Activity), .(Subject)), numcolwise(mean))
 ```
 
+### Final step - Writing data to a file
+
+Finally, in order to make the submission for the course project, writing the data to a file is needed. 
+This is the command I used for this purpose: 
+```R
+$> write.table(finalData, file = "finalData.txt", row.name = FALSE)
+```
+
+This concludes the process followed to tidy the data the way descrived in the course project. 
