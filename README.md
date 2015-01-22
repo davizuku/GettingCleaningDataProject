@@ -22,9 +22,9 @@ The following steps performed to tidy the raw data obtained through internet hav
 
 ### Step 0 - Obtaining data
 
-First of all, raw data have been downloaded from [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) and extracted in a folder named `data` in the same directory where the script `run_analysis.R` is. 
+First of all, raw data was downloaded from [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) and extracted in a folder named `data` in the same directory where the script `run_analysis.R` is. 
 
-Once the raw data are in files locally in the system, they are loaded into `R` filling the following variables: 
+Once the raw data are in files locally in the system, they were loaded into `R` filling the following variables: 
 
 * `actLabels` : is a **vector** containing the labels of the activities, i.e. 'WALKING', 'STANDING', ... obtained from the file [activity_labels.txt](https://github.com/davizuku/GettingCleaningDataProject/blob/master/data/UCI%20HAR%20Dataset/activity_labels.txt). It will be used later for labeling each observation in the main dataset.
 * `features` : is a **vector** containing the column names for the data set, i.e. 'tBodyAcc-max()-X', ... obtained from the file [features.txt](https://github.com/davizuku/GettingCleaningDataProject/blob/master/data/UCI%20HAR%20Dataset/features.txt). It will be used later to provide descriptive names to the dataset. 
@@ -34,4 +34,29 @@ Once the raw data are in files locally in the system, they are loaded into `R` f
 
 ### Step 1 - Merging data into one data set
 
-![Merging data](https://coursera-forum-screenshots.s3.amazonaws.com/ab/a2776024af11e4a69d5576f8bc8459/Slide2.png)
+In this step, I used the variables of the previous step to build one single data set with all the information, following the scheme of the attached image.
+
+First, I grouped all data coming from the *Train Set* and *Test Set* together in two data set using: 
+```
+$> mTrainData <- cbind(trainSubj, trainLbls, trainData)
+$> mTestData <- cbind(testSubj, testLbls, testData)
+```
+
+After that I built the complete data set using: 
+```
+$> mData <- rbind(mTrainData, mTestData)
+```
+
+The variable `mData` stands for *merged* data.
+
+![Merging data](https://coursera-forum-screenshots.s3.amazonaws.com/ab/a2776024af11e4a69d5576f8bc8459/Slide2.png "Image obtained from the course Discussion Forum")
+
+#### Memory clean up (optional) 
+
+Since I did not need the initial variables, I decided to remove them from the workspace: 
+```
+$> rm(list = c("trainData", "trainLbls", "trainSubj", "testData", "testLbls", "testSubj", "mTrainData", "mTestData"))
+```
+
+Of course, this step is entirely optional because the final data set will be the same if we do not perfom it.
+
