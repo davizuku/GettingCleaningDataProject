@@ -34,7 +34,7 @@ Once the raw data are in files locally in the system, they were loaded into `R` 
 
 ### Step 1 - Merging data into one data set
 
-In this step, I used the variables of the previous step to build one single data set with all the information, following the scheme of the attached image.
+In this step, I used the variables of the previous step to build one single data set with all the information, following the scheme of the attached image (obtained from the course Discussion Forum - [link to post](https://class.coursera.org/getdata-010/forum/thread?thread_id=49#post-1230)).
 
 First, I grouped all data coming from the *Train Set* and *Test Set* together in two data set using: 
 ```R
