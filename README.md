@@ -79,6 +79,29 @@ $> mData$Activity <- sapply(mData$Activity, function(data){actLabels[data]})
 
 This instruction assumes `actLabels` to be a **vector**. This variable was correctly initialized after loading it from the correspondent file. Using this method, only one line of code is needed and the column `Activity` is automatically converted from a `numeric vector` to a `character vector`. 
 
-There are **other solutions** assuming the variable `actLabels` was in the form of a data set with the numeric values in one column and string values in another. The same result could have been accomplished using the functions `merge(...)` or `join(...)` (from the `plyr` package). However, I found my solution simpler as the column is substituted automatically, and no column has to be removed which is the case of the two other solutions. 
+There are **other solutions** assuming the variable `actLabels` was in the form of a **data.frame** with the numeric values in one column and string values in another. The same result could have been accomplished using the functions `merge(...)` or `join(...)` (from the `plyr` package). However, I found my solution simpler as the column is substituted automatically, and no column has to be removed which is the case of the two other solutions. 
 
+### Step 4 - Labeling columns with descriptive names
+
+In this step there is an important subjective component on what is a *descriptive name* for a column. Taking my own assumptions of this concept, I tried to: 
+1. Expand some very short abbreviations. 
+2. Eliminate separators and use *CamelCase* naming convention. 
+3. Keep separators for the `X`, `Y` and `Z` components of the vectors. This way it is clearer which columns are vector components and which ones are just scalar values in their own.
+ 
+I used the command `sub(...)` to modify all the elements of a vector according to a regular expression pattern. 
+Here are the transformations I performed: 
+```R
+$> dataNames <- names(mData)
+$> dataNames <- sub("^t", "time", dataNames)
+$> dataNames <- sub("^f", "freq", dataNames)
+$> dataNames <- sub("\\.\\.$", "", dataNames)
+$> dataNames <- sub("\\.\\.\\.", "\\.", dataNames)
+$> dataNames <- sub("\\.mean", "Mean", dataNames)
+$> dataNames <- sub("\\.std", "Std", dataNames)
+```
+
+After that, the `dateNames` variable is assigned back to the data frame column names. 
+```R
+$> names(mData) <- dataNames
+```
 
