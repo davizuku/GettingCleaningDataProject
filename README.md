@@ -37,13 +37,13 @@ Once the raw data are in files locally in the system, they were loaded into `R` 
 In this step, I used the variables of the previous step to build one single data set with all the information, following the scheme of the attached image.
 
 First, I grouped all data coming from the *Train Set* and *Test Set* together in two data set using: 
-```
+```R
 $> mTrainData <- cbind(trainSubj, trainLbls, trainData)
 $> mTestData <- cbind(testSubj, testLbls, testData)
 ```
 
 After that I built the complete data set using: 
-```
+```R
 $> mData <- rbind(mTrainData, mTestData)
 ```
 
@@ -54,9 +54,20 @@ The variable `mData` stands for *merged* data.
 #### Memory clean up (optional) 
 
 Since I did not need the initial variables, I decided to remove them from the workspace: 
-```
+```R
 $> rm(list = c("trainData", "trainLbls", "trainSubj", "testData", "testLbls", "testSubj", "mTrainData", "mTestData"))
 ```
 
 Of course, this step is entirely optional because the final data set will be the same if we do not perfom it.
+
+### Step 2 - Subsetting columns
+
+In this step I took the previous `mData` data set and select only those columns related to the **mean** and **standard deviation** of the attributes mesured. 
+```R
+$> indicesToExtract <- grep("\\.(mean|std)\\.", names(mData), ignore.case = TRUE)
+$> mData <- mData[,c(1, 2, indicesToExtract)]
+```
+
+The *RegExp* used in the first instruction - `\\.(mean|std)\\.` - matches all the names containing '.mean.' or '.std.'. Using it with the `grep` command I obtained the indices of the columns I wanted to extract. Additionally, I wanted to mantain the `Subject` and `Activity` columns placed in the positions **1** and **2**, respectively. This is why I used the expression `c(1, 2, indicesToExtract)` when subsetting the columns of the data set.
+
 
