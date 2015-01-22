@@ -53,7 +53,7 @@ The variable `mData` stands for *merged* data.
 
 #### Memory clean up (optional) 
 
-Since I did not need the initial variables, I decided to remove them from the workspace: 
+Since I did not need some of the initial variables, I decided to remove them from the workspace: 
 ```R
 $> rm(list = c("trainData", "trainLbls", "trainSubj", "testData", "testLbls", "testSubj", "mTrainData", "mTestData"))
 ```
@@ -69,5 +69,16 @@ $> mData <- mData[,c(1, 2, indicesToExtract)]
 ```
 
 The *RegExp* used in the first instruction - `\\.(mean|std)\\.` - matches all the names containing '.mean.' or '.std.'. Using it with the `grep` command I obtained the indices of the columns I wanted to extract. Additionally, I wanted to mantain the `Subject` and `Activity` columns placed in the positions **1** and **2**, respectively. This is why I used the expression `c(1, 2, indicesToExtract)` when subsetting the columns of the data set.
+
+### Step 3 - Providing descriptive activity labels
+
+There are several ways to perform this step. I chosed this one because I thought it was the simplest: 
+```R
+$> mData$Activity <- sapply(mData$Activity, function(data){actLabels[data]})
+```
+
+This instruction assumes `actLabels` to be a **vector**. This variable was correctly initialized after loading it from the correspondent file. Using this method, only one line of code is needed and the column `Activity` is automatically converted from a `numeric vector` to a `character vector`. 
+
+There are **other solutions** assuming the variable `actLabels` was in the form of a data set with the numeric values in one column and string values in another. The same result could have been accomplished using the functions `merge(...)` or `join(...)` (from the `plyr` package). However, I found my solution simpler as the column is substituted automatically, and no column has to be removed which is the case of the two other solutions. 
 
 
