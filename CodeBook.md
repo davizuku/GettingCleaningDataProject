@@ -1,3 +1,12 @@
+### Getting and Cleaning Data - Course Project
+# Code Book
+
+## Data description
+
+After transforming the raw data following the steps of the [README.md](https://github.com/davizuku/GettingCleaningDataProject/blob/master/README.md) file. In this document the features of the resulting data set are presented. 
+
+The following table shows a brief description and the units of each of the columns of the data set in the file [finalData.txt](https://github.com/davizuku/GettingCleaningDataProject/blob/master/finalData.txt) submitted to the course project. 
+
 | Column name | Description | Units of mesurement |
 |---|---|---|
 |`Activity` | Activity performed for each Subject. | String|
